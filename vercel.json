@@ -1,11 +1,11 @@
 {
-  "build": {
-    "builder": "@vercel/static-build",
-    "src": "frontend",
-    "env": {
-      "VITE_API_BASE": "@vite_api_base"
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build"
     }
-  },
+  ],
   "routes": [
     {
       "src": "^/(?!api).*",
