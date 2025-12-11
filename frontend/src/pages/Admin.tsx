@@ -1,4 +1,5 @@
-import { FormEvent, useEffect, useState } from 'react'
+import React, { useState } from "react";
+import type { FormEvent } from "react";
 import { useApp } from '../context/AppContext'
 import type { Doctor } from '../types'
 
