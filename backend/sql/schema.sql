@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS doctors (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  specialty TEXT NOT NULL,
+  location TEXT,
+  hospital TEXT,
+  experience_years INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS slots (
+  id SERIAL PRIMARY KEY,
+  doctor_id INTEGER NOT NULL REFERENCES doctors(id) ON DELETE CASCADE,
+  start_ts TIMESTAMPTZ NOT NULL,
+  end_ts TIMESTAMPTZ NOT NULL,
+  capacity INTEGER NOT NULL DEFAULT 1 CHECK (capacity >= 1)
+);
+
+CREATE TABLE IF NOT EXISTS bookings (
+  id SERIAL PRIMARY KEY,
+  slot_id INTEGER NOT NULL REFERENCES slots(id) ON DELETE CASCADE,
+  user_name TEXT NOT NULL,
+  status TEXT NOT NULL CHECK (status IN ('PENDING', 'CONFIRMED', 'FAILED')),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+

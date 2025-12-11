@@ -1,0 +1,93 @@
+{
+  "info": {
+    "name": "Doctor Appointment API",
+    "_postman_id": "e7d4b6ee-0000-4c0d-8a9f-demo",
+    "description": "Minimal collection covering doctor, slot and booking flows.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "List doctors",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/doctors"
+      }
+    },
+    {
+      "name": "Create doctor",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Dr Strange\",\n  \"specialty\": \"Magic\"\n}"
+        },
+        "url": "{{baseUrl}}/doctors"
+      }
+    },
+    {
+      "name": "List slots (available only)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/slots?availableOnly=true"
+      }
+    },
+    {
+      "name": "Create slot",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"doctorId\": 1,\n  \"startTs\": \"2025-01-01T10:00:00Z\",\n  \"endTs\": \"2025-01-01T10:30:00Z\",\n  \"capacity\": 1\n}"
+        },
+        "url": "{{baseUrl}}/slots"
+      }
+    },
+    {
+      "name": "Book slot",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"slotId\": 1,\n  \"userName\": \"Tony\"\n}"
+        },
+        "url": "{{baseUrl}}/bookings"
+      }
+    },
+    {
+      "name": "Get booking status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/bookings/1"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000/api"
+    }
+  ]
+}
+
+

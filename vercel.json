@@ -1,0 +1,20 @@
+{
+  "build": {
+    "builder": "@vercel/static-build",
+    "src": "frontend",
+    "env": {
+      "VITE_API_BASE": "@vite_api_base"
+    }
+  },
+  "routes": [
+    {
+      "src": "^/(?!api).*",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "VITE_API_BASE": {
+      "description": "API base URL for the backend"
+    }
+  }
+}
