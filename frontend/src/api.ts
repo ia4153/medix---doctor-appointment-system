@@ -7,20 +7,22 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   })
   if (!res.ok) {
     const message = await res.json().catch(() => ({}))
-    throw new Error(message.error ?? 'Request failed')
+    throw new Error((message as any).error ?? 'Request failed')
   }
-  return res.json() as Promise<T>
+  const data = await res.json().catch(() => ({}))
+  return data as T
 }
 
 export const api = {
-  listDoctors: () => request('/doctors'),
+  listDoctors: (): Promise<import('./types').Doctor[]> =>
+    request<import('./types').Doctor[]>('/doctors'),
   createDoctor: (data: { name: string; specialty: string }) =>
     request('/doctors', { method: 'POST', body: JSON.stringify(data) }),
   listSlots: (params?: { doctorId?: string; availableOnly?: boolean }) => {
     const search = new URLSearchParams()
     if (params?.doctorId) search.set('doctorId', params.doctorId)
     if (params?.availableOnly) search.set('availableOnly', 'true')
-    return request(`/slots?${search.toString()}`)
+    return request<import('./types').Slot[]>(`/slots?${search.toString()}`)
   },
   createSlot: (data: {
     doctorId: number
@@ -29,8 +31,8 @@ export const api = {
     capacity?: number
   }) => request('/slots', { method: 'POST', body: JSON.stringify(data) }),
   bookSlot: (data: { slotId: number; userName: string }) =>
-    request('/bookings', { method: 'POST', body: JSON.stringify(data) }),
-  getBooking: (id: number) => request(`/bookings/${id}`),
+    request<import('./types').Booking>('/bookings', { method: 'POST', body: JSON.stringify(data) }),
+  getBooking: (id: number) => request<import('./types').Booking>(`/bookings/${id}`),
 }
 
 
