@@ -11,10 +11,5 @@
       "src": "^/(?!api).*",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "VITE_API_BASE": {
-      "description": "API base URL for the backend"
-    }
-  }
+  ]
 }
