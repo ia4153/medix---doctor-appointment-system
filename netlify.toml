@@ -1,7 +1,7 @@
 [build]
   base = "frontend"
   command = "npm run build"
-  publish = "frontend/dist"
+  publish = "dist"
 
 # You can set environment variables in the Netlify UI (recommended).
 # Example: VITE_API_BASE -> https://your-railway-url
